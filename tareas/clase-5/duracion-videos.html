@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Calcular duraciòn de los videos.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="" />
+  </head>
+  <body>
+    <header id="titulo">Calculador de tiempo de videos.</header>
+    <main>
+      <form id="duracion-videos" onsubmit="return false">
+        <label for="horas">Horas: </label>
+        <input id="horas" type="number" />
+        <label for="minutos">Minutos: </label>
+        <input id="minutos" type="number" />
+        <label for="segundos"> Segundos: </label>
+        <input id="segundos" typo="number" />
+        <input id="calcular" type="submit" value="Calcular" />
+        <input id="resetear" type="reset" value="Resetear" />
+      </form>
+
+      <strong><div id="resultado"></div></strong>
+    </main>
+    <script src="duracion-videos.js"></script>
+  </body>
+</html>
