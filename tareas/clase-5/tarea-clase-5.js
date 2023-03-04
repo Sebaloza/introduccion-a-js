@@ -23,6 +23,7 @@ $botonCalcular.onclick = function()
 // en una caja de texto deshabilitada. --> <input type="text" disabled id="salario-mensual"/>
 
 /*
+
 document.querySelector('#calcular-salario-mensual').onclick = function () {
 
     const salarioAnual = Number(document.querySelector('#salario-anual').value);
@@ -40,7 +41,6 @@ function calcularSalarioMensual (salarioAnual) {
 }
 
 */
-
 
 //TAREA: En otro archivo html (no Index) y otro archivo js (no tarea-clase-5.js),
 // creá un formulario que capture el primer nombre, segundo nombre, apellido/s y edad del usuario
@@ -62,7 +62,6 @@ Ejemplo form:
 * */
 
 /*
-
 
 document.querySelector('#ingresar').onclick = function () {
 
@@ -90,9 +89,7 @@ document.querySelector('#ingresar').onclick = function () {
 // al apretar el botón "Calcular tiempo total", debe mostrar en un
 // <strong> pre-creado el tiempo total de los videos.
 
-
 /*
-
 
 let segundosCargados = 0;
 let minutosCargados = 0;
@@ -112,9 +109,6 @@ document.querySelector('#calcular').onclick = function (){
 
     document.querySelector('#resultado').textContent = `La duración total de los videos es de ${horasCargadas}:${minutosCargados}:${segundosCargados}`;
 
-//console.log (`Horas = ${horasCargadas}`);
-//console.log (`Minutos = ${minutosCargados}`);
-//console.log (`Segundos = ${segundosCargados}`);
 }
 
 document.querySelector('#resetear').onclick = function (){
@@ -124,8 +118,8 @@ document.querySelector('#resetear').onclick = function (){
     document.querySelector('#resultado').textContent = `La duración total de los videos es de ${horasCargadas}:${minutosCargados}:${segundosCargados}`;
 }
 
-*/
 
+*/
 
 //TAREA: En otro archivo distinto,
 // Crear una lista de <ol> y <li> que contengan sólo números.
@@ -135,83 +129,104 @@ document.querySelector('#resetear').onclick = function (){
 // 3. obtener el número más grande y mostrarlo en un <em> pre-creado con el texto "El número más grande es..."
 // 4. obtener el número que más se repite y mostrarlo en un <em> pre-creado con el texto "El número más frecuente es..."
 
+const numeros = document.querySelectorAll("li");
 
+function calcularPromedio(numeros) {
+  let sumaTotal = 0;
+  const cantidadNumeros = numeros.length;
 
+  for (i = 0; i < numeros.length; i++) {
+    sumaTotal = sumaTotal + Number(numeros[i].textContent);
+  }
 
-const numeros = document.querySelectorAll('li');
+  let promedio = sumaTotal / cantidadNumeros;
 
+  return promedio;
+}
 
-function calcularPromedio (numeros) {
+function buscarNumeroPequeno(numeros) {
+  let numeroMasPequeno = Number(numeros[0].textContent);
 
-    let sumaTotal = 0;
-    let cantidadNumeros = numeros.length;
-        
-    for ( i = 0; i < numeros.length; i++) {
-        sumaTotal = sumaTotal + Number(numeros[i].textContent);
+  for (i = 0; i < numeros.length; i++) {
+    const numeroCalculado = Number(numeros[i].textContent);
+
+    if (numeroCalculado < numeroMasPequeno) {
+      numeroMasPequeno = numeroCalculado;
     }
-    
-    let promedio = sumaTotal / cantidadNumeros;
-
-    document.querySelector('#promedio').textContent = `El promedio es ${promedio}`;
+  }
+  return numeroMasPequeno;
 }
 
+function buscarNumeroGrande(numeros) {
+  let numeroMasGrande = Number(numeros[0].textContent);
 
-function buscarNumeroPequeno (numeros) {
-
-    let numeroMasPequeno = Number(numeros[0].textContent);
-
-    for (i=0; i < numeros.length; i++) {
-        
-        if ( Number(numeros[i].textContent) < numeroMasPequeno ) {
-        numeroMasPequeno = Number(numeros[i].textContent);
-        }
+  for (i = 0; i < numeros.length; i++) {
+    const numeroCalculado = Number(numeros[i].textContent)
+    if (numeroCalculado > numeroMasGrande) {
+      numeroMasGrande = numeroCalculado;
     }
-    document.querySelector('#numero-pequeno').textContent = `El número más pequeño es ${numeroMasPequeno}`;
+  }
+  return numeroMasGrande;
 }
 
-function buscarNumeroGrande (numeros) {
+function buscarNumeroFrecuente(numeros) {
+  let mayorFrecuencia = 1;
+  let frecuencia = 0;
+  let numeroMasFrecuente;
 
-    let numeroMasGrande = Number(numeros[0].textContent);
+  for (i = 0; i < numeros.length; i++) {
+    for (j = i; j < numeros.length; j++) {
+      const numeroCalculado = Number(numeros[i].textContent);
+      const numeroComparado = Number(numeros[j].textContent);
+      
+      if (numeroCalculado == numeroComparado)
+        frecuencia++;
 
-    for (i=0; i < numeros.length; i++) {
-        
-        if ( Number(numeros[i].textContent) > numeroMasGrande ) {
-            numeroMasGrande = Number(numeros[i].textContent);
-        }
+      if (frecuencia > mayorFrecuencia) {
+        mayorFrecuencia = frecuencia;
+        numeroMasFrecuente = Number(numeros[i].textContent);
+      }
     }
-    document.querySelector('#numero-grande').textContent = `El número más grande es ${numeroMasGrande}`;
+    frecuencia = 0;
+  }
+  return numeroMasFrecuente;
 }
 
-function buscarNumeroFrecuente (numeros) {
+function mostrarPromedio(promedio) {
+  const $contenedorPromedio = document.querySelector("#promedio");
 
-    let mayorFrecuencia = 1;
-    let frecuencia = 0;
-    let numeroMasFrecuente;
-
-    for (i = 0; i < numeros.length; i++) {
-
-        for (j = i; j < numeros.length; j++) {
-            if (Number(numeros[i].textContent) == Number(numeros[j].textContent))
-            frecuencia++;
-            if  (frecuencia > mayorFrecuencia) {
-                mayorFrecuencia = frecuencia; 
-                numeroMasFrecuente = Number(numeros[i].textContent)
-            }
-        }
-
-        frecuencia = 0;
-    }
-
-    document.querySelector('#numero-frecuente').textContent = `El número más frecuente es ${numeroMasFrecuente}`
+  $contenedorPromedio.textContent = `El promedio es ${promedio}`;
 }
 
-function calcularNumeros(numeros) {
-    
-    calcularPromedio(numeros);
-    buscarNumeroPequeno (numeros);
-    buscarNumeroGrande (numeros);
-    buscarNumeroFrecuente (numeros);
+function mostrarNumeroPequeno(numeroMasPequeno) {
+  const $contenedorNumeroPequeno = document.querySelector("#numero-pequeno");
 
+  $contenedorNumeroPequeno.textContent = `El número más pequeño es ${numeroMasPequeno}`;
 }
 
-calcularNumeros (numeros);
+function mostrarNumeroGrande(numeroMasGrande) {
+  const $contenedorNumeroGrande = document.querySelector("#numero-grande");
+
+  $contenedorNumeroGrande.textContent = `El número más grande es ${numeroMasGrande}`;
+}
+
+function mostrarNumeroFrecuente(numeroMasFrecuente) {
+  const $contenedorNumeroFrecuente =
+    document.querySelector("#numero-frecuente");
+
+  $contenedorNumeroFrecuente.textContent = `El número más frecuente es ${numeroMasFrecuente}`;
+}
+
+const promedioEncontrado = calcularPromedio(numeros);
+const numeroFrecuenteEncontrado = buscarNumeroFrecuente(numeros);
+const numeroPequenoEncontrado = buscarNumeroPequeno(numeros);
+const numeroGrandeEncontrado = buscarNumeroGrande(numeros);
+
+function mostrarNumeros() {
+  mostrarPromedio(promedioEncontrado);
+  mostrarNumeroPequeno(numeroPequenoEncontrado);
+  mostrarNumeroGrande(numeroGrandeEncontrado);
+  mostrarNumeroFrecuente(numeroFrecuenteEncontrado);
+}
+
+mostrarNumeros(numeros);
