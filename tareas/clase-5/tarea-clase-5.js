@@ -22,6 +22,26 @@ $botonCalcular.onclick = function()
 //cuando el usuario haga click en el botón "calcular", mostrar el salario mensual
 // en una caja de texto deshabilitada. --> <input type="text" disabled id="salario-mensual"/>
 
+/*
+document.querySelector('#calcular-salario-mensual').onclick = function () {
+
+    const salarioAnual = Number(document.querySelector('#salario-anual').value);
+    const salarioMensual = calcularSalarioMensual(salarioAnual);
+
+    document.querySelector('#salario-mensual').value = salarioMensual;
+}
+
+function calcularSalarioMensual (salarioAnual) {
+
+    
+    const mesesDelAno = 12;
+
+    return salarioAnual / mesesDelAno;
+}
+
+*/
+
+
 //TAREA: En otro archivo html (no Index) y otro archivo js (no tarea-clase-5.js),
 // creá un formulario que capture el primer nombre, segundo nombre, apellido/s y edad del usuario
 // también vamos a crear un <h1> que diga Bienvenido!
@@ -41,6 +61,27 @@ Ejemplo form:
 *
 * */
 
+/*
+
+
+document.querySelector('#ingresar').onclick = function () {
+
+    const $nombreUsuario = document.querySelector('#nombre-usuario').value;
+    const $apellidoUsuario = document.querySelector('#apellido-usuario').value;
+    const $edadUsuario = document.querySelector('#edad-usuario').value;
+
+    document.querySelector('#resultado').textContent = `Nombre: ${$nombreUsuario}
+    Apellido: ${$apellidoUsuario}
+    Edad: ${$edadUsuario}`;
+
+    document.querySelector('h1').textContent = `Bienvenido  +${$nombreUsuario}`;
+
+    return false;
+
+}
+
+*/
+
 //TAREA: En otro archivo distinto,
 // Por cada clase de r/argentina programa existente, vamos a pedir:
 // horas, minutos y segundos de cada video. Ej. Si un video dura
@@ -49,6 +90,43 @@ Ejemplo form:
 // al apretar el botón "Calcular tiempo total", debe mostrar en un
 // <strong> pre-creado el tiempo total de los videos.
 
+
+/*
+
+
+let segundosCargados = 0;
+let minutosCargados = 0;
+let horasCargadas = 0;
+
+
+document.querySelector('#calcular').onclick = function (){
+   
+    segundosCargados = segundosCargados + Number(document.querySelector('#segundos').value);
+    minutosCargados = minutosCargados + Number(document.querySelector('#minutos').value);
+    horasCargadas = horasCargadas + Number(document.querySelector('#horas').value);
+
+    minutosCargados = minutosCargados + Math.floor(segundosCargados / 60);
+    segundosCargados = segundosCargados % 60;
+    horasCargadas = horasCargadas + Math.floor(minutosCargados / 60);
+    minutosCargados = minutosCargados % 60;
+
+    document.querySelector('#resultado').textContent = `La duración total de los videos es de ${horasCargadas}:${minutosCargados}:${segundosCargados}`;
+
+//console.log (`Horas = ${horasCargadas}`);
+//console.log (`Minutos = ${minutosCargados}`);
+//console.log (`Segundos = ${segundosCargados}`);
+}
+
+document.querySelector('#resetear').onclick = function (){
+    segundosCargados = 0;
+    minutosCargados = 0;
+    horasCargadas = 0;
+    document.querySelector('#resultado').textContent = `La duración total de los videos es de ${horasCargadas}:${minutosCargados}:${segundosCargados}`;
+}
+
+*/
+
+
 //TAREA: En otro archivo distinto,
 // Crear una lista de <ol> y <li> que contengan sólo números.
 // Convertir esos números a un array y:
@@ -56,3 +134,84 @@ Ejemplo form:
 // 2. obtener el número más pequeño y mostrarlo en un <em> pre-creado con el texto "El número más pequeño es..."
 // 3. obtener el número más grande y mostrarlo en un <em> pre-creado con el texto "El número más grande es..."
 // 4. obtener el número que más se repite y mostrarlo en un <em> pre-creado con el texto "El número más frecuente es..."
+
+
+
+
+const numeros = document.querySelectorAll('li');
+
+
+function calcularPromedio (numeros) {
+
+    let sumaTotal = 0;
+    let cantidadNumeros = numeros.length;
+        
+    for ( i = 0; i < numeros.length; i++) {
+        sumaTotal = sumaTotal + Number(numeros[i].textContent);
+    }
+    
+    let promedio = sumaTotal / cantidadNumeros;
+
+    document.querySelector('#promedio').textContent = `El promedio es ${promedio}`;
+}
+
+
+function buscarNumeroPequeno (numeros) {
+
+    let numeroMasPequeno = Number(numeros[0].textContent);
+
+    for (i=0; i < numeros.length; i++) {
+        
+        if ( Number(numeros[i].textContent) < numeroMasPequeno ) {
+        numeroMasPequeno = Number(numeros[i].textContent);
+        }
+    }
+    document.querySelector('#numero-pequeno').textContent = `El número más pequeño es ${numeroMasPequeno}`;
+}
+
+function buscarNumeroGrande (numeros) {
+
+    let numeroMasGrande = Number(numeros[0].textContent);
+
+    for (i=0; i < numeros.length; i++) {
+        
+        if ( Number(numeros[i].textContent) > numeroMasGrande ) {
+            numeroMasGrande = Number(numeros[i].textContent);
+        }
+    }
+    document.querySelector('#numero-grande').textContent = `El número más grande es ${numeroMasGrande}`;
+}
+
+function buscarNumeroFrecuente (numeros) {
+
+    let mayorFrecuencia = 1;
+    let frecuencia = 0;
+    let numeroMasFrecuente;
+
+    for (i = 0; i < numeros.length; i++) {
+
+        for (j = i; j < numeros.length; j++) {
+            if (Number(numeros[i].textContent) == Number(numeros[j].textContent))
+            frecuencia++;
+            if  (frecuencia > mayorFrecuencia) {
+                mayorFrecuencia = frecuencia; 
+                numeroMasFrecuente = Number(numeros[i].textContent)
+            }
+        }
+
+        frecuencia = 0;
+    }
+
+    document.querySelector('#numero-frecuente').textContent = `El número más frecuente es ${numeroMasFrecuente}`
+}
+
+function calcularNumeros(numeros) {
+    
+    calcularPromedio(numeros);
+    buscarNumeroPequeno (numeros);
+    buscarNumeroGrande (numeros);
+    buscarNumeroFrecuente (numeros);
+
+}
+
+calcularNumeros (numeros);
